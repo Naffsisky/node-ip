@@ -2,7 +2,7 @@ const axios = require('axios')
 const { performance } = require('perf_hooks')
 
 // Konfigurasi
-const url = 'http://alibaba.prinafsika.world'
+const url = 'http://lb.prinafsika.world'
 const numberOfRequests = 200 // Jumlah permintaan yang akan dikirimkan
 const requestInterval = 200 // Waktu tunggu antara setiap permintaan (ms)
 
