@@ -14,7 +14,6 @@ app.get('/', async (req, res) => {
     res.send(`
       Your client IP address is: ${clientIp}
       Your server public IPv4 is: ${ip4}
-      SERVER BACKUP
     `)
 
     console.info(`Client IP: ${clientIp}`)
