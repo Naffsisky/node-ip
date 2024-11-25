@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Update
-sudo apt upgrade && sudo apt update
+sudo apt update -y
 
 # Install node
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
