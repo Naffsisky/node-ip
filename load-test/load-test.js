@@ -2,7 +2,7 @@ import http from 'k6/http'
 import { check, sleep } from 'k6'
 import { Counter, Gauge, Rate, Trend } from 'k6/metrics'
 
-// Definisi custom metrics
+// Custom metrics
 const myCounter = new Counter('total_requests') // Menghitung total permintaan
 const myGauge = new Gauge('current_response_time') // Melacak waktu respons saat ini
 const myRate = new Rate('successful_requests') // Menghitung rasio permintaan sukses
@@ -10,14 +10,19 @@ const myTrend = new Trend('response_time_distribution') // Menganalisis distribu
 
 export const options = {
   stages: [
-    { duration: '30s', target: 100 },
-    { duration: '1m', target: 100 },
+    { duration: '30s', target: 1000 },
+    { duration: '3m', target: 1000 },
     { duration: '30s', target: 0 },
   ],
+  ext: {
+    influxdb: {
+      pushInterval: '10s', // meningkatkan interval flush ke 10 detik
+    },
+  },
 }
 
 export default function () {
-  const response = http.get('http://alibaba.prinafsika.world')
+  const response = http.get('http://target_url') // Ganti target_url dengan URL
 
   // Menambahkan data ke custom metrics
   myCounter.add(1) // Tambah 1 untuk setiap permintaan yang dilakukan
@@ -31,5 +36,6 @@ export default function () {
     'response time < 200ms': (r) => r.timings.duration < 200,
   })
 
-  sleep(1)
+  // random sleep
+  sleep(Math.random() * 2)
 }
